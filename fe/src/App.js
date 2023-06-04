@@ -48,7 +48,6 @@ class App extends Component {
           const content = event.target.elements.content.value;
           this.handleAddNote(content);
           event.target.reset();
-          this.handleRefreshNotes();
         }}>
           <textarea  name="content" placeholder="Введите заметку"></textarea>
           <button type="submit">Добавить</button>
@@ -59,10 +58,7 @@ class App extends Component {
           <div className="note" key={note.id}>
             <p>{note.content}</p>
             <p>{note.id}</p>
-            <button onClick={() => {
-              this.handleDeleteNote(note.id);
-              this.handleRefreshNotes();
-              }}>Удалить</button>
+            <button onClick={() => this.handleDeleteNote(note.id)}>Удалить</button>
           </div>
         ))}
         </div>
