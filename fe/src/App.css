@@ -1,0 +1,13 @@
+.App {
+  text-align: center;
+}
+
+.note {
+  border: 1px solid;
+  padding: 30px;
+  margin: 30px;
+}
+.notes {
+  display: flex;
+  flex-wrap: wrap;
+}
