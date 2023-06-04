@@ -15,7 +15,9 @@ class App extends Component {
       .then(data => this.setState({ notes: data }))
       .catch(error => console.log(error));
   }
-
+  componentDidUpdate() {
+    this.handleRefreshNotes();
+  }
   handleAddNote = (content) => {
     fetch('http://localhost:7070/notes', {
       method: 'POST',
