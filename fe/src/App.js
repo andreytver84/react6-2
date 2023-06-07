@@ -28,9 +28,6 @@ class App extends Component {
 
   handleDeleteNote = (id) => {
     fetch(`http://localhost:7070/notes/${id}`, { method: 'DELETE' })
-      .then(response => response.json())
-      .then(data => this.setState({ notes: data }))
-      .catch(error => console.log(error));
   };
 
   handleRefreshNotes = () => {
