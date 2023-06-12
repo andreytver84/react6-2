@@ -16,7 +16,8 @@ class App extends Component {
       .catch(error => console.log(error));
   }
   componentDidUpdate() {
-    this.handleRefreshNotes();
+    console.log('call');
+    
   }
   handleAddNote = (content) => {
     fetch('http://localhost:7070/notes', {
