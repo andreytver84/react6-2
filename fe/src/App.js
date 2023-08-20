@@ -17,18 +17,28 @@ class App extends Component {
   }
   componentDidUpdate() {
     console.log('call');
-    
   }
   handleAddNote = (content) => {
     fetch('http://localhost:7070/notes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ content })
+    }).then(() => {
+      fetch('http://localhost:7070/notes')
+        .then(response => response.json())
+        .then(data => this.setState({ notes: data }))
+        .catch(error => console.log(error));
     })
   };
 
   handleDeleteNote = (id) => {
     fetch(`http://localhost:7070/notes/${id}`, { method: 'DELETE' })
+      .then(() => {
+        fetch('http://localhost:7070/notes')
+          .then(response => response.json())
+          .then(data => this.setState({ notes: data }))
+          .catch(error => console.log(error));
+      })
   };
 
   handleRefreshNotes = () => {
@@ -47,18 +57,18 @@ class App extends Component {
           this.handleAddNote(content);
           event.target.reset();
         }}>
-          <textarea  name="content" placeholder="Введите заметку"></textarea>
+          <textarea name="content" placeholder="Введите заметку"></textarea>
           <button type="submit">Добавить</button>
         </form>
         <button onClick={this.handleRefreshNotes}>Обновить</button>
         <div className='notes'>
           {this.state.notes.map(note => (
-          <div className="note" key={note.id}>
-            <p>{note.content}</p>
-            <p>{note.id}</p>
-            <button onClick={() => this.handleDeleteNote(note.id)}>Удалить</button>
-          </div>
-        ))}
+            <div className="note" key={note.id}>
+              <p>{note.content}</p>
+              <p>{note.id}</p>
+              <button onClick={() => this.handleDeleteNote(note.id)}>Удалить</button>
+            </div>
+          ))}
         </div>
       </div>
     );
